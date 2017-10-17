@@ -140,11 +140,11 @@ cleanup(not_found, _Reason) ->
     ok.
 
 bimap_take(X, Map) ->
-    case maps:take(X, Map) of
-        error ->
-            {not_found, Map};
-        {Val, Map2} ->
-            {Val, maps:remove(Val, Map2)}
+    case Map of
+        #{X := Val} ->
+            {Val, maps:without([X, Val], Map)};
+        #{} ->
+            {not_found, Map}
     end.
 
 bimap_put(X, Y, Map) ->
