@@ -412,7 +412,7 @@ publish({rpc_call, From}, Pub, AMQPMsg,
    T = erlang:monotonic_time(),
 
    Opaque = {self(), CorrID},
-   {reply, {ok, Opaque}, State#state {
+   {reply, {ok, Opaque, 0}, State#state {
        corr_id = CorrID + 1,
        in_flight = track(From, CorrID, T, IF) }};
 publish({F, _X}, Pub, AMQPMsg, #state{ channel = Ch, confirms = false } = State) ->
